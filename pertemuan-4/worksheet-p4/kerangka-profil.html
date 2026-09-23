@@ -40,22 +40,26 @@
     <a class="lewati" href="#utama">Lewati ke konten utama</a>
 
     <header class="kepala">
-      <!-- ISI 2 — nama Anda, atau nama panggilan yang Anda pakai. -->
-      <h1>Fitroh Nur Hafidz</h1>
+      <div class="header-baris">
+        <input type="checkbox" id="tema" class="pengalih-tema" />
+        <label for="tema" class="tombol-tema">🌙 Mode Gelap</label>
+        <!-- ISI 2 — nama Anda, atau nama panggilan yang Anda pakai. -->
+        <h1>Fitroh Nur Hafidz</h1>
+        <nav aria-label="Navigasi utama">
+          <ul>
+            <li><a href="#tentang">Tentang</a></li>
+            <li><a href="#karya">Karya</a></li>
+            <li><a href="#kontak">Kontak</a></li>
+            <li><a href="#lini-masa">Lini Masa</a></li>
+            <li><a href="#keterampilan">Keterampilan</a></li>
+            <li><a href="#tanya-jawab">Tanya Jawab</a></li>
+          </ul>
+        </nav>
+      </div>
       <!-- ISI 3 — satu kalimat tentang diri Anda. -->
       <p class="tagline">
         Mahasiswa Informatika yang berfokus pada pengembangan web terstruktur.
       </p>
-      <nav aria-label="Navigasi utama">
-        <ul>
-          <li><a href="#tentang">Tentang</a></li>
-          <li><a href="#karya">Karya</a></li>
-          <li><a href="#kontak">Kontak</a></li>
-          <li><a href="#lini-masa">Lini Masa</a></li>
-          <li><a href="#keterampilan">Keterampilan</a></li>
-          <li><a href="#tanya-jawab">Tanya Jawab</a></li>
-        </ul>
-      </nav>
     </header>
 
     <main id="utama">
@@ -120,13 +124,19 @@
         <h2>Karya saya</h2>
         <!-- ISI 7 — tiga karya, proyek, atau hal yang pernah Anda buat.
            Boleh tugas kuliah, karya pribadi, atau hobi. -->
-        <ul>
-          <li>
-            Halaman Kelas Terbuka Kampus — praktikum P03, HTML semantik dan
-            form.
+        <ul class="katalog">
+          <li class="kartu">
+            <strong>Kelas Terbuka Kampus</strong><br />
+            Praktikum P03, HTML semantik dan form.
           </li>
-          <li>pembuatan website pribadi — web foto, 2026.</li>
-          <li>web portofolio — tugas akhir PKL, 2023 - 2024.</li>
+          <li class="kartu">
+            <strong>Website Pribadi</strong><br />
+            Web foto interaktif, 2026.
+          </li>
+          <li class="kartu">
+            <strong>Web Portofolio</strong><br />
+            Tugas akhir PKL, 2023 - 2024.
+          </li>
         </ul>
       </section>
 
@@ -138,7 +148,7 @@
           <fieldset>
             <legend>Data pengirim</legend>
 
-            <p>
+            <p class="form-kolom">
               <label for="nama">Nama lengkap</label>
               <input
                 id="nama"
@@ -147,9 +157,10 @@
                 autocomplete="name"
                 required
               />
+              <span class="pesan-galat">Harap isi nama lengkap Anda.</span>
             </p>
 
-            <p>
+            <p class="form-kolom">
               <label for="email">Email</label>
               <input
                 id="email"
@@ -158,9 +169,10 @@
                 autocomplete="email"
                 required
               />
+              <span class="pesan-galat">Format email tidak valid.</span>
             </p>
 
-            <p>
+            <p class="form-kolom">
               <label for="nim">NIM</label>
               <!-- ISI 8 — ganti angka di dalam pattern dengan NIM Anda sendiri. -->
               <input
@@ -175,11 +187,13 @@
               <span id="nim-bantuan"
                 >Delapan digit angka, contoh 25523203.</span
               >
+              <span class="pesan-galat">NIM harus berupa 8 digit angka.</span>
             </p>
 
-            <p>
+            <p class="form-kolom">
               <label for="pesan">Pesan</label>
               <textarea id="pesan" name="pesan" rows="4" required></textarea>
+              <span class="pesan-galat">Pesan tidak boleh kosong.</span>
             </p>
 
             <button type="submit">Kirim</button>
@@ -224,15 +238,15 @@
         <ul>
           <li>
             <span>HTML5 Semantik & Aksesibilitas</span>
-            <progress value="90" max="100">70%</progress>
+            <progress value="90" max="100">90%</progress>
           </li>
           <li>
             <span>CSS Architecture & Tokens</span>
-            <progress value="80" max="100">40%</progress>
+            <progress value="85" max="100">85%</progress>
           </li>
           <li>
             <span>Manajemen Repositori (Git & GitHub)</span>
-            <progress value="75" max="100">50%</progress>
+            <progress value="80" max="100">80%</progress>
           </li>
         </ul>
       </aside>
