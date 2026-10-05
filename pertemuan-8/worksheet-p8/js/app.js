@@ -9,8 +9,7 @@ const profil = {
 };
 
 let kategoriAktif = "semua";
-
-const kalimat = `Nama saya ${profil.nama}, seorang ${profil.peran} yang mempelajari${profil.keahlian.length} hal dasar.`;
+const kalimat = `Nama saya ${profil.nama}, seorang ${profil.peran} yang mempelajari ${profil.keahlian.length} hal dasar.`;
 
 const kota = profil.kontak?.kota ?? "Belum ditentukan";
 
@@ -18,3 +17,15 @@ console.log(kalimat);
 console.log(`Kota Tempat Tinggal: ${kota}`);
 console.log("Tipe data nama:", typeof profil.nama);
 console.log("Tipe data jumlahProyek:", typeof profil.jumlahProyek);
+
+function buatPerkenalan({ nama, peran }) {
+  return `${nama} — ${peran}`;
+}
+
+const formatKeahlian = (daftar = []) => {
+  return daftar.join(" · ");
+};
+
+console.log("--- Hasil Lembar C ---");
+console.log(buatPerkenalan(profil));
+console.log("Keahlian:", formatKeahlian(profil.keahlian));
