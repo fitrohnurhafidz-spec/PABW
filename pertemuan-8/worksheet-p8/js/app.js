@@ -5,7 +5,7 @@ const profil = {
   keahlian: ["HTML", "CSS", "JavaScript"],
   jumlahProyek: 4,
   kontak: {
-    email: "mahasiswa@alumni.id",
+    email: "mahasiswa@uii.ac.id",
   },
 };
 
