@@ -114,3 +114,10 @@ summary {
 .kartu__judul {
   overflow-wrap: anywhere;
 }
+
+/* Penanda tombol filter aktif */
+#filter button.aktif {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  font-weight: bold;
+}
