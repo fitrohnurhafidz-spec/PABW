@@ -3,8 +3,9 @@ import { daftarProyek } from "./app.js";
 const wadah = document.querySelector("#daftar");
 const pesanKosong = document.querySelector("#pesan-kosong");
 const barisFilter = document.querySelector("#filter");
+const form = document.querySelector("form");
 
-// B.1 - Fungsi membuat 1 elemen kartu proyek
+// B.1 - Fungsi membuat 1 kartu proyek
 function buatKartu(proyek) {
   const li = document.createElement("li");
   li.className = "kartu";
@@ -12,38 +13,35 @@ function buatKartu(proyek) {
   return li;
 }
 
-// B.2 - Fungsi render (menampilkan daftar ke halaman)
+// D.1 - Fungsi Render Terpusat (3 langkah wajib)
 function render(daftar) {
-  wadah.textContent = "";
+  wadah.textContent = ""; // 1. Kosongkan wadah lebih dulu
 
-  // Tampilkan pesan kosong jika data tidak ditemukan
   if (daftar.length === 0) {
+    // 2. Periksa keadaan kosong
     pesanKosong.hidden = false;
     return;
   }
 
   pesanKosong.hidden = true;
   daftar.forEach((proyek) => {
+    // 3. Isi ulang wadah dengan data baru
     wadah.append(buatKartu(proyek));
   });
 }
 
-// C.2 - Fungsi untuk menandai tombol mana yang lagi aktif
 function tandaiTombolAktif(tombolAktif) {
   document.querySelectorAll("#filter button").forEach((tombol) => {
     tombol.classList.toggle("aktif", tombol === tombolAktif);
   });
 }
 
-// C.1 - EVENT DELEGATION: 1 pendengar klik di induk (#filter)
+// Event Delegation untuk Filter
 barisFilter.addEventListener("click", (event) => {
-  // Cari tombol terdekat yang diklik
   const tombol = event.target.closest("button");
-  if (!tombol) return; // Jika yang diklik di luar tombol, abaikan
+  if (!tombol) return;
 
   const kategori = tombol.dataset.kategori;
-
-  // Menyaring data proyek sesuai data-kategori tombol
   const terpilih = daftarProyek.filter(
     (proyek) => kategori === "semua" || proyek.kategori === kategori,
   );
@@ -52,5 +50,80 @@ barisFilter.addEventListener("click", (event) => {
   render(terpilih);
 });
 
-// Jalankan render awal
+// D.2 - Validasi Form Kontak
+if (form) {
+  const inputNama = document.querySelector("#nama");
+  const inputEmail = document.querySelector("#email");
+  const inputNim = document.querySelector("#nim");
+  const inputPesan = document.querySelector("#pesan");
+  const tombolKirim = form.querySelector('button[type="submit"]');
+
+  // Sembunyikan pesan galat bawaan di awal
+  document.querySelectorAll(".pesan-galat").forEach((el) => {
+    el.style.display = "none";
+  });
+
+  // Fungsi pembantu untuk menampilkan/menyembunyikan galat per kolom
+  function setGalat(input, sah) {
+    const pKolom = input.closest(".form-kolom");
+    const pesanGalat = pKolom ? pKolom.querySelector(".pesan-galat") : null;
+
+    if (sah) {
+      input.removeAttribute("aria-invalid");
+      if (pesanGalat) pesanGalat.style.display = "none";
+    } else {
+      input.setAttribute("aria-invalid", "true");
+      if (pesanGalat) pesanGalat.style.display = "block";
+    }
+  }
+
+  // Fungsi untuk memeriksa seluruh isi form
+  function periksaForm() {
+    const namaSah = inputNama.value.trim() !== "";
+    const emailSah = inputEmail.value.trim().includes("@");
+    const nimSah = /^[0-9]{8}$/.test(inputNim.value.trim());
+    const pesanSah = inputPesan.value.trim() !== "";
+
+    const semuaSah = namaSah && emailSah && nimSah && pesanSah;
+    if (tombolKirim) tombolKirim.disabled = !semuaSah;
+
+    return { namaSah, emailSah, nimSah, pesanSah, semuaSah };
+  }
+
+  // Validasi saat pengguna ngetik (live validation)
+  form.addEventListener("input", (event) => {
+    const t = event.target;
+    if (t === inputNama) setGalat(inputNama, inputNama.value.trim() !== "");
+    if (t === inputEmail)
+      setGalat(inputEmail, inputEmail.value.trim().includes("@"));
+    if (t === inputNim)
+      setGalat(inputNim, /^[0-9]{8}$/.test(inputNim.value.trim()));
+    if (t === inputPesan) setGalat(inputPesan, inputPesan.value.trim() !== "");
+
+    periksaForm();
+  });
+
+  // Menangani event kirim form
+  form.addEventListener("submit", (event) => {
+    event.preventDefault(); // Mencegah halaman reload/memuat ulang
+
+    const hasil = periksaForm();
+
+    if (!hasil.semuaSah) {
+      if (!hasil.namaSah) inputNama.focus();
+      else if (!hasil.emailSah) inputEmail.focus();
+      else if (!hasil.nimSah) inputNim.focus();
+      else if (!hasil.pesanSah) inputPesan.focus();
+      return;
+    }
+
+    alert("Pesan berhasil dikirim!");
+    form.reset();
+    periksaForm();
+  });
+
+  periksaForm();
+}
+
+// Render awal daftar proyek
 render(daftarProyek);
