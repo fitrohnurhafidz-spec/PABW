@@ -1,8 +1,16 @@
-import { muat } from "./api.js";
+// js/app.js
+import { ambilNotisia } from "./api.js";
 
-// Pengujian Lembar A
-muat().then((data) => console.log("Data berhasil dimuat:", data));
+async function muatData() {
+  try {
+    const data = await ambilNotisia();
+    console.log("Data berhasil dimuat:", data);
+  } catch (galat) {
+    console.log("Galat ditangkap di app.js:", galat.message);
+  }
+}
 
+muatData();
 // B.1 & B.4
 const profil = {
   nama: "fitroh nur hafidz",
