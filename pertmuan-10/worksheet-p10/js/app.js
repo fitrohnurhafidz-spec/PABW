@@ -27,35 +27,27 @@ function gambar(data) {
   });
 }
 
-// Fungsi utama penampil data dengan 4 Keadaan UI
 async function tampilkan() {
   if (!wadah) return;
-
-  // 1. Keadaan Memuat (Loading)
   wadah.textContent = "Memuat data dari server...";
 
   try {
     const data = await ambilNotisia();
 
-    // Lembar C.3: Periksa bentuk data di Console
     console.log("Data dari API:", data);
     console.log("Akses item pertama (data[0]):", data[0]);
 
-    // 2. Keadaan Kosong (Empty)
     if (!data || data.length === 0) {
       wadah.textContent = "Belum ada notisia";
       return;
     }
 
-    // 3. Keadaan Berhasil (Success)
     gambar(data);
   } catch (galat) {
-    // 4. Keadaan Gagal (Error)
     wadah.textContent = "Gagal memuat data: " + galat.message;
   }
 }
 
-// Jalankan fungsi tampilkan
 tampilkan();
 // B.1 & B.4
 const profil = {
