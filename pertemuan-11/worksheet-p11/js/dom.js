@@ -11,21 +11,35 @@ function buatKartu(proyek) {
   return li;
 }
 
+// Menandai tombol filter yang sedang aktif berdasarkan state.kategoriAktif
+export function tandaiTombolAktif(kategoriAktif) {
+  if (!barisFilter) return;
+
+  barisFilter.querySelectorAll("button").forEach((tombol) => {
+    // Membandingkan data-kategori tombol dengan kategoriAktif dari state
+    const KategoriTombol = tombol.dataset.kategori || "semua";
+    tombol.classList.toggle("aktif", KategoriTombol === kategoriAktif);
+  });
+}
+
 // Menggambar tampilan berdasarkan state
 export function render(state) {
   if (!wadah || !pesanKosong) return;
 
-  // 1. Kosongkan tampilan sebelumnya
+  // 1. Tandai tombol aktif sesuai kategori di state (penting untuk localStorage)
+  tandaiTombolAktif(state.kategoriAktif);
+
+  // 2. Kosongkan tampilan sebelumnya
   wadah.textContent = "";
 
-  // 2. Pilih proyek sesuai kategori aktif
+  // 3. Pilih proyek sesuai kategori aktif
   const daftarTampil = state.daftarProyek.filter((proyek) => {
     return (
       state.kategoriAktif === "semua" || proyek.kategori === state.kategoriAktif
     );
   });
 
-  // 3. Tangani kondisi jika tidak ada proyek
+  // 4. Tangani kondisi jika tidak ada proyek
   if (daftarTampil.length === 0) {
     pesanKosong.hidden = false;
     return;
@@ -33,17 +47,8 @@ export function render(state) {
 
   pesanKosong.hidden = true;
 
-  // 4. Gambar kartu proyek
+  // 5. Gambar kartu proyek
   daftarTampil.forEach((proyek) => {
     wadah.append(buatKartu(proyek));
-  });
-}
-
-// Menandai tombol filter yang sedang aktif
-export function tandaiTombolAktif(tombolAktif) {
-  if (!barisFilter) return;
-
-  barisFilter.querySelectorAll("button").forEach((tombol) => {
-    tombol.classList.toggle("aktif", tombol === tombolAktif);
   });
 }
