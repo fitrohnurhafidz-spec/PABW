@@ -11,11 +11,12 @@ function buatKartu(proyek) {
   return li;
 }
 
-// Menandai tombol filter yang sedang aktif berdasarkan state.kategoriAktif
 export function tandaiTombolAktif(kategoriAktif) {
   if (!barisFilter) return;
 
   barisFilter.querySelectorAll("button").forEach((tombol) => {
+    if (tombol.id === "btn-reset") return;
+
     // Membandingkan data-kategori tombol dengan kategoriAktif dari state
     const KategoriTombol = tombol.dataset.kategori || "semua";
     tombol.classList.toggle("aktif", KategoriTombol === kategoriAktif);
