@@ -1,9 +1,9 @@
+import { reactive } from "vue";
 import { daftarProyek } from "./data.js";
 
 const KUNCI = "pabw-p11";
 const VERSI = 2;
 
-// Memuat data dari localStorage saat aplikasi pertama kali dibuka
 export function muat() {
   try {
     const isi = JSON.parse(localStorage.getItem(KUNCI));
@@ -20,13 +20,12 @@ export function muat() {
 
 const simpananAwal = muat();
 
-// Objek state tunggal aplikasi
-export const state = {
+// Bungkus dengan reactive agar perubahan di Vue menjadi responsif
+export const state = reactive({
   daftarProyek: daftarProyek,
   kategoriAktif: simpananAwal?.kategoriAktif || "semua",
-};
+});
 
-// Fungsi menyimpan keadaan ke localStorage
 export function simpan(state) {
   const isi = {
     versi: VERSI,
@@ -35,13 +34,11 @@ export function simpan(state) {
   localStorage.setItem(KUNCI, JSON.stringify(isi));
 }
 
-// Fungsi mengubah kategori dan langsung menyimpan perubahan
 export function pilihKategori(kategori) {
   state.kategoriAktif = kategori;
   simpan(state);
 }
 
-// Fungsi menghapus simpanan (reset ke bawaan)
 export function aturUlang() {
   localStorage.removeItem(KUNCI);
   state.kategoriAktif = "semua";

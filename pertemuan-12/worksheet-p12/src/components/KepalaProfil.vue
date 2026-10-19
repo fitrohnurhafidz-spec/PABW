@@ -1,0 +1,12 @@
+<script setup>
+const props = defineProps({
+  profil: { type: Object, required: true },
+});
+</script>
+
+<template>
+  <header class="header">
+    <h1>{{ props.profil.nama }}</h1>
+    <p>{{ props.profil.peran }}</p>
+  </header>
+</template>

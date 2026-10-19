@@ -18,24 +18,28 @@ export const formatKeahlian = (daftar = []) => {
 
 export const daftarProyek = [
   {
+    id: 1,
     judul: "Halaman Profil",
     kategori: "web",
     tahun: 2026,
     selesai: true,
   },
   {
+    id: 2,
     judul: "Katalog Produk",
     kategori: "web",
     tahun: 2026,
     selesai: false,
   },
   {
+    id: 3,
     judul: "Aplikasi Kasir",
     kategori: "data",
     tahun: 2025,
     selesai: true,
   },
   {
+    id: 4,
     judul: "Portofolio Interaktif",
     kategori: "web",
     tahun: 2026,

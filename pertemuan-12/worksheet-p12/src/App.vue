@@ -1,4 +1,16 @@
+<script setup>
+import KepalaProfil from "./components/KepalaProfil.vue";
+import TombolFilter from "./components/TombolFilter.vue";
+import DaftarProyek from "./components/DaftarProyek.vue";
+import FormKontak from "./components/FormKontak.vue";
+import { profil } from "./data.js";
+</script>
+
 <template>
-  <h1>Halaman Anda</h1>
-  <p>Bagian halaman dipindahkan di lembar D.</p>
+  <div id="app-container">
+    <KepalaProfil :profil="profil" />
+    <TombolFilter />
+    <DaftarProyek />
+    <FormKontak />
+  </div>
 </template>
